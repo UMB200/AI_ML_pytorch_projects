@@ -1,6 +1,6 @@
 def download_helper_functions(files: list, repos: list):
-  for i, fd in enumerate(files_to_download):
-    rl = repos_list[i]
+  for i, fd in enumerate(files):
+    rl = repos[i]
     if Path(fd).is_file():
       print(f"{fd} already exsts, moving on")
     else:
