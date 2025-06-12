@@ -7,6 +7,8 @@ import zipfile
 from pathlib import Path
 import requests
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 def training_loop_step(model: torch.nn.Module,
                         data_loader: torch.utils.data.DataLoader,
                         loss_function: torch.nn.Module,
