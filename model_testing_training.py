@@ -6,6 +6,10 @@ import os
 import zipfile
 from pathlib import Path
 import requests
+from torchvision import datasets
+from torchvision import transforms
+from torchvision.transforms import ToTensor
+from torch.utils.data import DataLoader
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
