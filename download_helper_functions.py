@@ -1,5 +1,5 @@
 # Donwloads helper functions from other sources
-# Need to take 2 lists one iwith file names and nother one with URLs of repos
+# Need to take 2 lists one with file names and another one with URLs of repos
 
 def download_helper_functions(files: list, repos: list):
   for i, fd in enumerate(files):
