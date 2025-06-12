@@ -1,3 +1,12 @@
+import torch
+import matplotlib.pyplot as plt
+import numpy as np
+from torch import nn
+import os
+import zipfile
+from pathlib import Path
+import requests
+
 def training_loop_step(model: torch.nn.Module,
                         data_loader: torch.utils.data.DataLoader,
                         loss_function: torch.nn.Module,
