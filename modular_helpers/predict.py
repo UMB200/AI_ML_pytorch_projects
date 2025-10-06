@@ -8,6 +8,7 @@ from typing import List, Tuple
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def predict_show_image_fn(model: torch.nn.Module,
                           image_path: str,
