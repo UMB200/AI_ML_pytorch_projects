@@ -81,35 +81,35 @@ def predict_show_image_fn(model: torch.nn.Module,
 #print(f"[INFO] Predicting on {IMG_PATH}")
 
 # Loading in the model
-def load_model(model_path=args.model_path):
-  model = model_builder.Model_Builder_TinyVGG(input_shape=3,
-                                             hidden_units=128,
-                                             output_shape=3).to(device)
-  print(f"[INFO] Loading in model from: {model_path}")
-  model.load_state_dict(torch.load(model_path))
-  return model
+#def load_model(model_path=args.model_path):
+#  model = model_builder.Model_Builder_TinyVGG(input_shape=3,
+#                                             hidden_units=128,
+#                                             output_shape=3).to(device)
+#  print(f"[INFO] Loading in model from: {model_path}")
+#  model.load_state_dict(torch.load(model_path))
+#  return model
 
 # Load in model and predict image
-def predict_image(image_path=IMG_PATH,
-                      model_path=args.model_path):
+#def predict_image(image_path=IMG_PATH,
+#                      model_path=args.model_path):
   # Load in image
-  image = torchvision.io.read_image(str(IMG_PATH)).type(torch.float32)
-  model = load_model(model_path)
+#  image = torchvision.io.read_image(str(IMG_PATH)).type(torch.float32)
+#  model = load_model(model_path)
 
   # Process image to be the same as in model
-  image = image / 255.
-  transform = torchvision.transforms.Resize(size=(64, 64))
-  image = transform(image)
+#  image = image / 255.
+#  transform = torchvision.transforms.Resize(size=(64, 64))
+#  image = transform(image)
 
   # Predict the image
-  model.eval()
-  with torch.inference_mode():
-    image = image.to(device)
-    pred_logits = model(image.unsqueeze(dim=0))
-    pred_probs = torch.softmax(pred_logits, dim=1)
-    pred_labels = torch.argmax(pred_probs, dim=1)
-    pred_labels_class = class_names[pred_labels]
-  print(f"[INFO] Pred class: {pred_labels_class}, Pred prob: {pred_probs.max():.3f}")
+ # model.eval()
+ # with torch.inference_mode():
+ #   image = image.to(device)
+ #   pred_logits = model(image.unsqueeze(dim=0))
+ #   pred_probs = torch.softmax(pred_logits, dim=1)
+ #   pred_labels = torch.argmax(pred_probs, dim=1)
+ #   pred_labels_class = class_names[pred_labels]
+ # print(f"[INFO] Pred class: {pred_labels_class}, Pred prob: {pred_probs.max():.3f}")
 
 if __name__ == "__main__":
   predict_image()
