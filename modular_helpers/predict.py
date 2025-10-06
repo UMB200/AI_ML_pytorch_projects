@@ -55,29 +55,30 @@ def predict_show_image_fn(model: torch.nn.Module,
   plt.imshow(target_img)
   plt.axis(False)
 
+
 # Create a parser
-parser = argparse.ArgumentParser()
+#parser = argparse.ArgumentParser()
 
 # Get an image path
-parser.add_argument("--image",
-                    help="target image filepath to predict on")
+#parser.add_argument("--image",
+#                    help="target image filepath to predict on")
 # Get model path
-parser.add_argument("--model_path",
-                    default="models/05_going_modular_script_mode_tinyvgg_model.pth",
-                    type=str,
-                    help="target model to use for prediction filepath")
+#parser.add_argument("--model_path",
+#                    default="models/05_going_modular_script_mode_tinyvgg_model.pth",
+#                    type=str,
+#                    help="target model to use for prediction filepath")
 
-args = parser.parse_args()
+#args = parser.parse_args()
 
 # Setup class names
-class_names = ["pizza", "steak", "sushi"]
+#class_names = ["pizza", "steak", "sushi"]
 
 # Setup device
-device = "cuda" if torch.cuda.is_available() else "cpu"
+#device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # image path
-IMG_PATH = args.image
-print(f"[INFO] Predicting on {IMG_PATH}")
+#IMG_PATH = args.image
+#print(f"[INFO] Predicting on {IMG_PATH}")
 
 # Loading in the model
 def load_model(model_path=args.model_path):
