@@ -1,7 +1,10 @@
 import torch
+import torchvision
+
 from tqdm.auto import tqdm
 from typing import Dict, List, Tuple
 from torch import nn
+
 
 def train_step_loop(model: torch.nn.Module,
                     data_loader: torch.utils.data.DataLoader,
