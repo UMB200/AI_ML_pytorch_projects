@@ -5,6 +5,7 @@ from tqdm.auto import tqdm
 from typing import Dict, List, Tuple
 from torch import nn
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def train_step_loop(model: torch.nn.Module,
                     data_loader: torch.utils.data.DataLoader,
@@ -160,7 +161,7 @@ def feature_extractor(model: torchvision.models,
   
   model.classifier = nn.Sequential(
       nn.Dropout(p=0.2, inplace=True),
-      nn.Linear(in_features=in_features, out_features=out_features, bias=True).to(device)     
+      nn.Linear(in_features=in_features, out_features=out_features, bias=True)
   )
   print(f"Created new {model_name}")
   return model
