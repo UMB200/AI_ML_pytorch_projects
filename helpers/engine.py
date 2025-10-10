@@ -144,3 +144,20 @@ def train(model: torch.nn.Module,
     results["test_loss"].append(get_tensor_val(test_loss))
     results["test_acc"].append(get_tensor_val(test_acc))
   return results
+
+# Feature extractor for models
+def feature_extractor(model: torchvision.models,
+                      weights: torchvision.models,
+                      model_name: str,
+                      in_features: int,
+                      out_features)-> torchvision.models:
+  # Freeze parameters 
+  for param in model.features.parameters():
+    param.required_grad = False
+  
+  model.classifier = nn.Sequential(
+      nn.Dropout(p=0.2, inplace=True),
+      nn.Linear(in_features=in_features, out_features=out_features, bias=True).to(device)     
+  )
+  print(f"Created new {model_name}")
+  return model
