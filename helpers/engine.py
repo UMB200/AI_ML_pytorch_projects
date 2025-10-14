@@ -152,6 +152,7 @@ def train(model: torch.nn.Module,
 # Feature extractor for models
 def feature_extractor(model: torchvision.models,
                       weights: torchvision.models,
+                      transform: torchvision.models,
                       model_name: str,
                       in_features: int,
                       out_features)-> torchvision.models:
