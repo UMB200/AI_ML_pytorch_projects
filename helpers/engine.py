@@ -153,6 +153,7 @@ def train(model: torch.nn.Module,
 def feature_extractor(model: torchvision.models,
                       weights: torchvision.models,
                       transform: torchvision.models,
+                      dropout: float,
                       model_name: str,
                       in_features: int,
                       out_features)-> torchvision.models:
@@ -161,7 +162,7 @@ def feature_extractor(model: torchvision.models,
     param.required_grad = False
   
   model.classifier = nn.Sequential(
-      nn.Dropout(p=0.2, inplace=True),
+      nn.Dropout(p=dropout, inplace=True),
       nn.Linear(in_features=in_features, out_features=out_features, bias=True)
   )
   print(f"Created new {model_name}")
