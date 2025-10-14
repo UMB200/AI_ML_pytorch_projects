@@ -158,7 +158,7 @@ def feature_extractor(model: torchvision.models,
                       in_features: int,
                       out_features)-> torchvision.models:
   # Freeze parameters 
-  for param in model.features.parameters():
+  for param in model.parameters():
     param.required_grad = False
   
   model.classifier = nn.Sequential(
