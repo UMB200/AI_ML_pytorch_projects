@@ -70,3 +70,9 @@ def save_model(model: torch.nn.Module,
   print(f"[INFO] Saving model to: {model_save_path}")
   torch.save(obj=model.state_dict(),
              f=model_save_path)
+
+
+def model_size(path:str)-> float:
+  model_saved_size = Path(path).stat().st_size / (1024 * 1024)
+  print(f"Model size at:{path} is {model_saved_size:.2f} MB")
+  return model_saved_size
