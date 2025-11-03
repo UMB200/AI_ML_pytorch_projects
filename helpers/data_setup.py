@@ -3,6 +3,7 @@ Contains functionality for creating PyTorch DataLoaders for
 image classification data.
 """
 import os
+import torchvision
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
@@ -63,7 +64,7 @@ def create_dataloaders(
 
 #Split Data to 20 and 80% from Fodd101
 def split_data(
-    dataset:torchvision.datasets,
+    dataset:datasets,
     split_size:float=0.2,
     seed:int=42):
 
