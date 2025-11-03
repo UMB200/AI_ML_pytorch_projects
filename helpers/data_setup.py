@@ -59,3 +59,23 @@ def create_dataloaders(
                                pin_memory=True)
 
   return train_dataloader, test_dataloader, class_names
+
+
+#Split Data to 20 and 80% from Fodd101
+def split_data(
+    dataset:torchvision.datasets,
+    split_size:float=0.2,
+    seed:int=42):
+
+  first_length_part = int(split_size * len(dataset))
+  remaining_length_part = len(dataset) - first_length_part
+
+  print(f"Splitting dataset {len(dataset):,} images into 2 sets: 1 set is  {first_length_part:,} images, second one is {remaining_length_part:,} images")
+  print(f"{first_length_part:,} equals to {int(split_size*100)}% of total data")
+  print(f"{remaining_length_part:,} equals to {int(100-split_size*100)}% % of total data")
+
+  dataset_A, dataset_B = torch.utils.data.random_split(
+      dataset=dataset,
+      lengths=[first_length_part, remaining_length_part],
+      generator=torch.manual_seed(seed))
+  return dataset_A, dataset_B
