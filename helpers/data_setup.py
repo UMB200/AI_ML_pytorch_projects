@@ -4,6 +4,7 @@ image classification data.
 """
 import os
 import torchvision
+import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
