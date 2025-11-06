@@ -15,7 +15,7 @@ def predict_show_image_fn(model: torch.nn.Module,
                           class_names: List[str],
                           image_size: Tuple[int, int] = (224, 224),
                           transform=None,
-                          true_label: str = None
+                          true_label: str = None,
                           device: torch.device = device):
   """Makes a prediction on a target image and plots the image with its prediction."""
 
