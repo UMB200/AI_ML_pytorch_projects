@@ -15,13 +15,14 @@ def predict_show_image_fn(model: torch.nn.Module,
                           class_names: List[str],
                           image_size: Tuple[int, int] = (224, 224),
                           transform=None,
+                          true_label: str = None
                           device: torch.device = device):
   """Makes a prediction on a target image and plots the image with its prediction."""
 
-  # 1. load in image
+  # 1. Load in image
   target_img = Image.open(image_path)
 
-  # 3. Transform target image
+  # 2. Transform target image
   if transform is not None:
     img_transform = transform
   else:
@@ -31,27 +32,31 @@ def predict_show_image_fn(model: torch.nn.Module,
       torchvision.models.EfficientNet_B0_Weights.IMAGENET1K_V1.transforms()
     ])
 
-  # 4. Make sure model is on target device
+  # 3. Make sure model is on target device
   model.to(device)
 
-  # 5. Turn on model evaluation and inference mode
+  # 4. Predict
   model.eval()
   with torch.inference_mode():
-    #6. Transform and add an extra dimension to image
     target_img_transform = img_transform(target_img).unsqueeze(dim=0)
-
-    # 7. Make a prediction on image
     target_img_pred = model(target_img_transform.to(device))
-
-  # 8. Convert logits -> prediction probabilities using torch.softmax
+  
+  # 5. Get probability and predicted label
   target_img_pred_probs = torch.softmax(target_img_pred, dim=1)
+  target_img_pred_label = torch.argmax(target_img_pred_probs, dim=1).item()
+  
+  # 6.Create title with optional true label
+  pred_label_name = class_names[target_img_pred_label]
+  pred_prob = target_img_pred_probs.max().item()
 
-  # 9. Convert prediction probabilities -> prediction labels
-  target_img_pred_label = torch.argmax(target_img_pred_probs, dim=1)
-
-  # 10. Plot the image alongside the predicion and prediction probability
+  if true_label is not None:
+    title = f"True: {true_label} | Pred: {pred_label_name} ({pred_prob:.0%})"
+  else:
+    title = f"Prediction: {pred_label_name} | Probability: {pred_prob:.0%})"
+  
+  # 7. Plot the image alongside the predicion and prediction probability
   plt.figure()
-  plt.title(f"Prediction: {class_names[target_img_pred_label]} | Probability: {target_img_pred_probs.max():.0%}")
+  plt.title(title)
   plt.imshow(target_img)
   plt.axis(False)
 
