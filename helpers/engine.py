@@ -91,7 +91,7 @@ def train(model: torch.nn.Module,
                optimizer: torch.optim.Optimizer,
                loss_fn: torch.nn.Module,
                epochs: int,
-              scheduler: torch.optim.lr_scheduler._LRScheduler = None,
+               scheduler: torch.optim.lr_scheduler._LRScheduler = None,
                device: torch.device)-> Dict[str, List]:
   """Trains and tests a PyTorch model.
 
@@ -143,6 +143,12 @@ def train(model: torch.nn.Module,
           f"train_acc: {train_acc:.4f} | "
           f"test_loss: {test_loss:.4f} | "
           f"test_acc: {test_acc:.4f}")
+    if scheduler is not None:
+      # If using ReduceLROnPlateau, use validation loss; else, just step()
+      if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+        scheduler.step(test_loss)
+      else:
+        scheduler.step()
     get_tensor_val = lambda x: x.item() if isinstance(x, torch.Tensor) else x
     results["train_loss"].append(get_tensor_val(train_loss))
     results["train_acc"].append(get_tensor_val(train_acc))
