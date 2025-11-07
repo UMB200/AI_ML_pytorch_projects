@@ -47,7 +47,7 @@ def predict_show_image_fn(model: torch.nn.Module,
   
   # 6.Create title with optional true label
   pred_label_name = class_names[target_img_pred_label]
-  pred_prob = target_img_pred_probs.max().item()
+  pred_prob = target_img_pred_probs.max()
 
   if true_label is not None:
     title = f"True: {true_label} | Pred: {pred_label_name} ({pred_prob:.0%})"
